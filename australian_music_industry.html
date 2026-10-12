@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Behind the Music | Australian Music Industry</title>
+
+  <!-- Vega, Vega-Lite, and Vega-Embed -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+<!-- Typography: contemporary music publication -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Main page styling -->
+  <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
+</head>
+
+<body>
+  <div class="page">
+
+    <header class="hero">
+      <p class="eyebrow">Australian Music Arists | How the Industry Revolves Around Them</p>
+      <h1>Australian Music Artists</h1>
+      <p>Who earns from music, where performances happen, how artists reach audiences, and which subindustries generate export revenue.</p>
+    </header>
+
+    <section class="section two-col">
+      <div class="description">
+          <h2>Who are the Most Popular Australian Artists ?</h2>
+          <p>This chart shows the most popular Australian music artists, ordered by their global
+            monthly listeners on Spotify. 
+          </p>
+      </div>
+      <div id="vis-australian-artists" class="vis-container"></div>
+    </section>
+
+    <section class="section two-col">
+      <div class="description">
+        <h2>How do artists earn their income?</h2>
+        <p>
+          Live performances dominate the income breakdown for artists, followed by royalties.
+          Income earned from live performances isn't only reserved for the top artists.
+          </p>
+          <br>
+          <p>
+          Additionally, analysis from Music Australia across 2023-24 and 2024-25 shows that artists
+          earning lower incomes tended to be more reliant on live performances for their income.
+          Higher income artists tended to earn a higher proportion of their incomes from royalties.
+        </p>
+      </div>
+      <div id="vis-income" class="vis-container"></div>
+    </section>
+
+    <section class="section two-col">
+      <div class="description">
+          <h2>Where do Australian Music Artists Mostly Play At ?</h2>
+          <p>
+            Hotels and pubs account for the largest number of performances in the supplied data.
+            Comparing venue types helps show how live music is distributed across everyday venues,
+            dedicated performance spaces and private settings.
+          </p>
+          <br>
+          <p>
+            Stadiums and arenas are predominantly reserved for higher income top artists, while lower
+            income artists rely on performing in pubs, hotels, and theatres to make a regular income.
+            This reflects how skewed the income distribution for artists in Australia are, there is a
+            much larger proportion of lower income artists.
+          </p>
+        </div>
+      <div id="vis-venues" class="vis-container"></div>
+    </section>
+
+    <section class="section two-col">
+      <div class="description">
+          <h2>How Do Artists Access Labels and Distribution ?</h2>
+          <p>
+            The largest group reports having no label or distribution support. Other artists report
+            access to selected distribution services, their own label, or an independent or major label.
+            This gives context to the different routes artists may take to release music.
+          </p>
+        </div>
+      <div id="vis-distribution" class="vis-container"></div>
+    </section>
+
+    <section class="section two-col">
+      <div class="description">
+          <h2>Which Music Subindustries Earn Revenue Overseas ?</h2>
+          <p>
+            The bubble chart compares 2025 total revenue with export revenue for the many music subindustries. 
+            Larger bubbles represent higher total revenue, while colour shows export revenue as a percentage
+            of total revenue. This helps distinguish the biggest sectors from those with a greater export orientation.
+          </p>
+          <br>
+          <p>
+            As seen in the previous tree map, live performances had the greatest total revenue, however export revenue
+            is quite limited. This is intuitive, as live performances are the main income source for the disproportionately
+            larger number of low income artists.
+          </p>
+        </div>
+      <div id="vis-subindustry" class="vis-container"></div>
+    </section>
+  </div>
+
+  <script>
+    // Each chart loads its existing Vega-Lite JSON specification from a separate file.
+    // Keep these JSON files in the vega_lite_australian_music_charts folder relative to this HTML file.
+    const chartOptions = { actions: false, renderer: "svg" };
+
+    vegaEmbed("#vis-income", "charts_new/artist_income_treemap.vl.json", chartOptions)
+      .catch(console.error);
+    vegaEmbed("#vis-venues", "charts_new/music_venue_performances_bar.vl.json", chartOptions)
+      .catch(console.error);
+    vegaEmbed("#vis-distribution", "charts_new/artist_distribution_lollipop.vl.json", chartOptions)
+      .catch(console.error);
+    vegaEmbed("#vis-subindustry", "charts_new/australian_subindustry_bubble.vl.json", chartOptions)
+      .catch(console.error);
+    vegaEmbed("#vis-australian-artists", "charts_new/top_5_artists_image_chart.vl.json", chartOptions)
+      .catch(console.error);
+  </script>
+</body>
+</html>
