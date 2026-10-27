@@ -1,0 +1,82 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Radial (polar area) chart: share of the 53 most-awarded artists' ARIA wins earned by artists from each state. Equal angles, radius scaled by the square root of wins so area is proportional to wins.",
+  "data": {
+    "url": "data/states.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "population_000": "number",
+        "artists": "number",
+        "wins": "number",
+        "artists_per_million": "number",
+        "wins_per_million": "number",
+        "lon": "number",
+        "lat": "number"
+      }
+    }
+  },
+  "transform": [
+    {"filter": "datum.wins > 0"},
+    {"joinaggregate": [{"op": "sum", "field": "wins", "as": "total"}]},
+    {"calculate": "datum.wins / datum.total", "as": "share"},
+    {"calculate": "datum.state + ' ' + format(datum.share, '.0%')", "as": "label"}
+  ],
+  "width": 300,
+  "height": 300,
+  "layer": [
+    {
+      "mark": {
+        "type": "arc",
+        "stroke": "#f7f6f0",
+        "strokeWidth": 2,
+        "cornerRadius": 3,
+        "padAngle": 0.02,
+        "color": "#b58200"
+      },
+      "encoding": {
+        "theta": {
+          "field": "state",
+          "type": "nominal",
+          "sort": ["NSW", "VIC", "QLD", "SA", "WA", "NT", "ACT"],
+          "stack": true
+        },
+        "radius": {
+          "field": "wins",
+          "type": "quantitative",
+          "scale": {"type": "sqrt", "zero": true, "range": [16, 118]}
+        },
+        "tooltip": [
+          {"field": "state_name", "title": "State"},
+          {"field": "wins", "title": "ARIA Awards won"},
+          {"field": "share", "title": "Share of wins", "format": ".0%"},
+          {"field": "artists", "title": "Artists"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "radiusOffset": 18,
+        "fontSize": 12,
+        "fontWeight": 600,
+        "color": "#17221b"
+      },
+      "encoding": {
+        "theta": {
+          "field": "state",
+          "type": "nominal",
+          "sort": ["NSW", "VIC", "QLD", "SA", "WA", "NT", "ACT"],
+          "stack": true
+        },
+        "radius": {
+          "field": "wins",
+          "type": "quantitative",
+          "scale": {"type": "sqrt", "zero": true, "range": [16, 118]}
+        },
+        "text": {"field": "label"}
+      }
+    }
+  ],
+  "padding": 28
+}

@@ -1,0 +1,118 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Dumbbell chart: ARIA Award wins and nominations for the 25 most-awarded Australian artists (to 2025). The gap shows how many nominations did not convert to wins.",
+  "data": {
+    "url": "data/aria_artists.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "wins": "number",
+        "nominations": "number",
+        "strike_rate": "number",
+        "lat": "number",
+        "lon": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "window": [{"op": "row_number", "as": "rank"}],
+      "sort": [{"field": "wins", "order": "descending"}, {"field": "nominations", "order": "ascending"}]
+    },
+    {"filter": "datum.rank <= 25"},
+    {"calculate": "format(datum.strike_rate, '.0%')", "as": "strike"}
+  ],
+  "width": "container",
+  "height": {"step": 26},
+  "params": [
+    {
+      "name": "kindFilter",
+      "value": "All",
+      "bind": {
+        "input": "radio",
+        "options": ["All", "Solo", "Group"],
+        "labels": ["Everyone", "Solo artists", "Groups"],
+        "name": "Show: "
+      }
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "artist",
+      "type": "nominal",
+      "title": null,
+      "sort": {"field": "rank", "order": "ascending"},
+      "axis": {"ticks": false, "domain": false, "labelFontSize": 11.5, "labelPadding": 6}
+    }
+  },
+  "layer": [
+    {
+      "mark": {"type": "rule", "strokeWidth": 3.5, "color": "#dcd9cd"},
+      "encoding": {
+        "x": {
+          "field": "wins",
+          "type": "quantitative",
+          "title": "ARIA Awards",
+          "axis": {"orient": "top", "grid": true, "tickCount": 7},
+          "scale": {"domain": [0, 90]}
+        },
+        "x2": {"field": "nominations"},
+        "opacity": {
+          "condition": {"test": "kindFilter == 'All' || datum.kind == kindFilter", "value": 1},
+          "value": 0.2
+        }
+      }
+    },
+    {
+      "transform": [{"fold": ["wins", "nominations"], "as": ["measure", "count"]}],
+      "mark": {"type": "circle", "size": 230, "opacity": 1, "stroke": "#f7f6f0", "strokeWidth": 2},
+      "encoding": {
+        "x": {"field": "count", "type": "quantitative"},
+        "color": {
+          "field": "measure",
+          "type": "nominal",
+          "title": null,
+          "scale": {"domain": ["wins", "nominations"], "range": ["#b58200", "#7d7a6e"]},
+          "legend": {
+            "orient": "top",
+            "direction": "horizontal",
+            "labelExpr": "datum.value == 'wins' ? 'Wins' : 'Nominations'",
+            "symbolSize": 200
+          }
+        },
+        "opacity": {
+          "condition": {"test": "kindFilter == 'All' || datum.kind == kindFilter", "value": 1},
+          "value": 0.15
+        },
+        "tooltip": [
+          {"field": "artist", "title": "Artist"},
+          {"field": "kind", "title": "Type"},
+          {"field": "wins", "title": "Wins"},
+          {"field": "nominations", "title": "Nominations"},
+          {"field": "strike", "title": "Win rate"},
+          {"field": "place", "title": "Home town"}
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.artist == 'John Farnham' || datum.artist == 'Jet' || datum.artist == 'Paul Kelly'"
+        },
+        {
+          "calculate": "datum.artist == 'John Farnham' ? 'Most wins of all: 22' : datum.artist == 'Jet' ? 'Best win rate here: 8 of 11 (73%)' : 'Second-most nominations: 63'",
+          "as": "note"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 14,
+        "fontSize": 11.5,
+        "fontStyle": "italic",
+        "color": "#5e675f"
+      },
+      "encoding": {"x": {"field": "nominations", "type": "quantitative"}, "text": {"field": "note"}}
+    }
+  ]
+}

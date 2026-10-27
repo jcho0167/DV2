@@ -1,0 +1,65 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Small-multiple waffle charts: each square is one song in that year's Hottest 100; filled squares are songs by Australian artists.",
+  "data": {
+    "url": "data/hottest100_waffle.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "year": "number",
+        "aus_entries": "number",
+        "cell": "number",
+        "col": "number",
+        "row": "number"
+      }
+    }
+  },
+  "facet": {
+    "column": {
+      "field": "title",
+      "type": "nominal",
+      "title": null,
+      "sort": {"field": "year"},
+      "header": {
+        "labelFontSize": 13,
+        "labelFontWeight": 700,
+        "labelColor": "#17221b",
+        "labelAnchor": "start"
+      }
+    }
+  },
+  "spacing": 45,
+  "spec": {
+    "width": 224,
+    "height": 224,
+    "layer": [
+      {
+        "mark": {"type": "square", "size": 270, "filled": true, "opacity": 1},
+        "encoding": {
+          "x": {"field": "col", "type": "ordinal", "axis": null},
+          "y": {"field": "row", "type": "ordinal", "axis": null, "sort": "descending"},
+          "color": {
+            "field": "group",
+            "type": "nominal",
+            "title": null,
+            "scale": {
+              "domain": ["Australian artist", "International artist"],
+              "range": ["#1f7a4d", "#3b6fb6"]
+            },
+            "legend": {
+              "orient": "top",
+              "direction": "horizontal",
+              "symbolType": "square",
+              "labelFontSize": 12
+            }
+          },
+          "tooltip": [
+            {"field": "year", "title": "Year"},
+            {"field": "aus_entries", "title": "Songs by Australian artists"}
+          ]
+        }
+      }
+    ]
+  },
+  "resolve": {"scale": {"x": "independent", "y": "independent"}}
+}

@@ -1,0 +1,155 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Unit (dot-stack) timeline: one dot per ARIA Hall of Fame inductee, stacked by induction year. Dots in ochre are also among the 53 most-awarded artists.",
+  "data": {
+    "url": "data/hall_of_fame.csv",
+    "format": {"type": "csv", "parse": {"year": "number", "stack": "number"}}
+  },
+  "transform": [
+    {
+      "lookup": "inductee",
+      "from": {
+        "data": {
+          "url": "data/aria_artists.csv",
+          "format": {
+            "type": "csv",
+            "parse": {
+              "wins": "number",
+              "nominations": "number",
+              "strike_rate": "number",
+              "lat": "number",
+              "lon": "number"
+            }
+          }
+        },
+        "key": "artist",
+        "fields": ["wins"]
+      }
+    },
+    {"calculate": "datum.inductee == 'Gurrumul' ? 10 : datum.wins", "as": "wins"},
+    {
+      "calculate": "datum.wins ? 'Also among the most-awarded artists' : 'Other inductees'",
+      "as": "group"
+    }
+  ],
+  "width": "container",
+  "height": 210,
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "quantitative",
+      "title": null,
+      "scale": {"domain": [1987, 2027]},
+      "axis": {"format": "d", "tickCount": 10, "grid": false}
+    },
+    "y": {
+      "field": "stack",
+      "type": "quantitative",
+      "title": null,
+      "axis": null,
+      "scale": {"domain": [-0.6, 8.2]}
+    }
+  },
+  "layer": [
+    {
+      "data": {"values": [{"s": 2020.6, "e": 2022.4}]},
+      "mark": {"type": "rect", "color": "#ecebe3", "y": 0, "y2": 210},
+      "encoding": {"x": {"field": "s", "type": "quantitative"}, "x2": {"field": "e"}, "y": null}
+    },
+    {
+      "data": {
+        "values": [
+          {"year": 2021.5, "stack": 2.4, "t": "No inductees"},
+          {"year": 2021.5, "stack": 1.7, "t": "2021–22"}
+        ]
+      },
+      "mark": {"type": "text", "fontSize": 11.5, "fontStyle": "italic", "color": "#5e675f"},
+      "encoding": {
+        "x": {"field": "year", "type": "quantitative"},
+        "y": {"field": "stack", "type": "quantitative"},
+        "text": {"field": "t"}
+      }
+    },
+    {
+      "mark": {"type": "circle", "size": 150, "opacity": 1, "stroke": "#f7f6f0", "strokeWidth": 1.5},
+      "encoding": {
+        "color": {
+          "field": "group",
+          "type": "nominal",
+          "title": null,
+          "scale": {
+            "domain": ["Also among the most-awarded artists", "Other inductees"],
+            "range": ["#b58200", "#aaa79b"]
+          },
+          "legend": {"orient": "top", "direction": "horizontal", "title": null, "labelLimit": 320}
+        },
+        "tooltip": [
+          {"field": "inductee", "title": "Inductee"},
+          {"field": "year", "title": "Inducted", "format": "d"},
+          {"field": "wins", "title": "ARIA Awards won"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 1987.6,
+            "stack": 7.4,
+            "t": "1988: AC/DC and Slim Dusty in the first class",
+            "a": "left"
+          },
+          {"year": 2006, "stack": 7.6, "t": "2005–07: seven inductees a year", "a": "center"},
+          {"year": 2026.4, "stack": 6.8, "t": "2026: six, incl. Gurrumul", "a": "right"}
+        ]
+      },
+      "layer": [
+        {
+          "transform": [{"filter": "datum.a == 'left'"}],
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "fontSize": 12,
+            "fontWeight": 600,
+            "color": "#17221b"
+          },
+          "encoding": {
+            "x": {"field": "year", "type": "quantitative"},
+            "y": {"field": "stack", "type": "quantitative"},
+            "text": {"field": "t"}
+          }
+        },
+        {
+          "transform": [{"filter": "datum.a == 'center'"}],
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "fontSize": 12,
+            "fontWeight": 600,
+            "color": "#17221b"
+          },
+          "encoding": {
+            "x": {"field": "year", "type": "quantitative"},
+            "y": {"field": "stack", "type": "quantitative"},
+            "text": {"field": "t"}
+          }
+        },
+        {
+          "transform": [{"filter": "datum.a == 'right'"}],
+          "mark": {
+            "type": "text",
+            "align": "right",
+            "fontSize": 12,
+            "fontWeight": 600,
+            "color": "#17221b"
+          },
+          "encoding": {
+            "x": {"field": "year", "type": "quantitative"},
+            "y": {"field": "stack", "type": "quantitative"},
+            "text": {"field": "t"}
+          }
+        }
+      ]
+    }
+  ]
+}

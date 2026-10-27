@@ -1,0 +1,118 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Choropleth: award-winning artists (or ARIA wins) per million residents in each state and territory. Combines ARIA data with ABS population estimates (31 March 2026).",
+  "width": "container",
+  "height": 460,
+  "params": [
+    {
+      "name": "measure",
+      "value": "artists_per_million",
+      "bind": {
+        "input": "radio",
+        "options": ["artists_per_million", "wins_per_million"],
+        "labels": ["Most-awarded artists per million people", "ARIA Awards won per million people"],
+        "name": "Show: "
+      }
+    }
+  ],
+  "data": {"url": "data/au-states.geojson", "format": {"type": "json", "property": "features"}},
+  "projection": {"type": "conicEqualArea", "parallels": [-18, -36], "rotate": [-134, 0]},
+  "transform": [
+    {
+      "lookup": "properties.STATE_NAME",
+      "from": {
+        "data": {
+          "url": "data/states.csv",
+          "format": {
+            "type": "csv",
+            "parse": {
+              "population_000": "number",
+              "artists": "number",
+              "wins": "number",
+              "artists_per_million": "number",
+              "wins_per_million": "number",
+              "lon": "number",
+              "lat": "number"
+            }
+          }
+        },
+        "key": "state_name",
+        "fields": [
+          "state",
+          "lon",
+          "lat",
+          "population_000",
+          "artists",
+          "wins",
+          "artists_per_million",
+          "wins_per_million"
+        ]
+      }
+    },
+    {"calculate": "datum[measure]", "as": "value"},
+    {"calculate": "format(datum.population_000 / 1000, '.2f') + ' million'", "as": "population"}
+  ],
+  "layer": [
+    {
+      "mark": {"type": "geoshape", "stroke": "#f7f6f0", "strokeWidth": 1.5},
+      "encoding": {
+        "color": {
+          "field": "value",
+          "type": "quantitative",
+          "title": "Per million residents",
+          "scale": {
+            "type": "sqrt",
+            "range": ["#d6a226", "#b58200", "#8c6400", "#644600", "#3f2c00"],
+            "zero": true
+          },
+          "legend": {
+            "orient": "bottom-left",
+            "direction": "horizontal",
+            "gradientLength": 180,
+            "format": ".0f"
+          }
+        },
+        "tooltip": [
+          {"field": "properties.STATE_NAME", "title": "State"},
+          {"field": "population", "title": "Population (ABS, Mar 2026)"},
+          {"field": "artists", "title": "Most-awarded artists from here"},
+          {"field": "wins", "title": "ARIA Awards won"},
+          {"field": "artists_per_million", "title": "Artists per million", "format": ".2f"},
+          {"field": "wins_per_million", "title": "Wins per million", "format": ".1f"}
+        ]
+      }
+    },
+    {
+      "transform": [{"filter": "datum.state != 'ACT'"}],
+      "mark": {"type": "text", "fontSize": 13, "fontWeight": 700, "dy": -8},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "state"},
+        "color": {
+          "condition": {
+            "test": "datum.value > (measure == 'artists_per_million' ? 2.5 : 25)",
+            "value": "#ffffff"
+          },
+          "value": "#17221b"
+        }
+      }
+    },
+    {
+      "transform": [{"filter": "datum.state != 'ACT'"}],
+      "mark": {"type": "text", "fontSize": 12, "dy": 9},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "value", "format": ".1f"},
+        "color": {
+          "condition": {
+            "test": "datum.value > (measure == 'artists_per_million' ? 2.5 : 25)",
+            "value": "#ffffff"
+          },
+          "value": "#17221b"
+        }
+      }
+    }
+  ]
+}

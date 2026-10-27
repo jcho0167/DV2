@@ -1,0 +1,163 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Line chart: number of songs by Australian artists in each Triple J Hottest 100 (1993–2025), with a 50-song reference line and annotations.",
+  "data": {
+    "url": "data/hottest100.csv",
+    "format": {"type": "csv", "parse": {"year": "number", "aus_entries": "number", "votes": "number"}}
+  },
+  "width": "container",
+  "height": 290,
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "quantitative",
+      "title": null,
+      "scale": {"domain": [1993, 2025]},
+      "axis": {"format": "d", "tickCount": 17, "grid": false}
+    },
+    "y": {
+      "field": "aus_entries",
+      "type": "quantitative",
+      "title": "Songs by Australian artists (of 100)",
+      "scale": {"domain": [0, 80]},
+      "axis": {"tickCount": 4}
+    }
+  },
+  "layer": [
+    {"mark": {"type": "area", "color": "#1f7a4d", "opacity": 0.1, "interpolate": "monotone"}},
+    {
+      "data": {"values": [{"y": 50}]},
+      "layer": [
+        {
+          "mark": {"type": "rule", "strokeDash": [4, 4], "color": "#7d7a6e"},
+          "encoding": {"y": {"field": "y", "type": "quantitative"}}
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 4,
+            "dy": -7,
+            "text": "Half the countdown",
+            "fontSize": 11.5,
+            "fontStyle": "italic",
+            "color": "#5e675f"
+          },
+          "encoding": {"y": {"field": "y", "type": "quantitative"}, "x": {"datum": 1993}}
+        }
+      ]
+    },
+    {
+      "mark": {"type": "line", "color": "#1f7a4d", "strokeWidth": 2.5, "interpolate": "monotone"}
+    },
+    {
+      "params": [
+        {
+          "name": "hoverYear",
+          "select": {
+            "type": "point",
+            "fields": ["year"],
+            "on": "pointerover",
+            "nearest": true,
+            "clear": "pointerout"
+          }
+        }
+      ],
+      "mark": {"type": "circle", "color": "#1f7a4d", "stroke": "#f7f6f0", "strokeWidth": 1.5},
+      "encoding": {
+        "size": {"condition": {"param": "hoverYear", "empty": false, "value": 140}, "value": 36},
+        "tooltip": [
+          {"field": "year", "title": "Year", "format": "d"},
+          {"field": "aus_entries", "title": "Australian songs"},
+          {"field": "number_one", "title": "No. 1 song"},
+          {"field": "number_one_artist", "title": "No. 1 artist"},
+          {"field": "number_one_country", "title": "No. 1 from"}
+        ]
+      }
+    },
+    {
+      "transform": [{"filter": {"param": "hoverYear", "empty": false}}],
+      "mark": {"type": "rule", "color": "#7d7a6e", "strokeWidth": 1}
+    },
+    {
+      "data": {
+        "values": [
+          {"year": 1993, "v": 24, "t": "1993: just 24 local songs"},
+          {"year": 2016, "v": 66, "t": "Record: 66 (2016, equalled in 2020)"},
+          {"year": 2024, "v": 29, "t": "2024: down to 29 as US & UK pop surged"},
+          {"year": 2025, "v": 54, "t": "2025: back to 54"}
+        ]
+      },
+      "layer": [
+        {
+          "transform": [{"filter": "datum.year == 1993"}],
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 4,
+            "dy": 18,
+            "fontSize": 12,
+            "fontWeight": 600,
+            "color": "#17221b"
+          },
+          "encoding": {
+            "x": {"field": "year", "type": "quantitative"},
+            "y": {"field": "v", "type": "quantitative"},
+            "text": {"field": "t"}
+          }
+        },
+        {
+          "transform": [{"filter": "datum.year == 2016"}],
+          "mark": {
+            "type": "text",
+            "align": "right",
+            "dx": -8,
+            "dy": -12,
+            "fontSize": 12,
+            "fontWeight": 600,
+            "color": "#17221b"
+          },
+          "encoding": {
+            "x": {"field": "year", "type": "quantitative"},
+            "y": {"field": "v", "type": "quantitative"},
+            "text": {"field": "t"}
+          }
+        },
+        {
+          "transform": [{"filter": "datum.year == 2024"}],
+          "mark": {
+            "type": "text",
+            "align": "right",
+            "dx": -12,
+            "dy": 8,
+            "fontSize": 12,
+            "fontWeight": 600,
+            "color": "#17221b"
+          },
+          "encoding": {
+            "x": {"field": "year", "type": "quantitative"},
+            "y": {"field": "v", "type": "quantitative"},
+            "text": {"field": "t"}
+          }
+        },
+        {
+          "transform": [{"filter": "datum.year == 2025"}],
+          "mark": {
+            "type": "text",
+            "align": "right",
+            "dx": -6,
+            "dy": -14,
+            "fontSize": 12,
+            "fontWeight": 600,
+            "color": "#17221b"
+          },
+          "encoding": {
+            "x": {"field": "year", "type": "quantitative"},
+            "y": {"field": "v", "type": "quantitative"},
+            "text": {"field": "t"}
+          }
+        }
+      ]
+    }
+  ]
+}

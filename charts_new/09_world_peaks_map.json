@@ -1,0 +1,149 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "World choropleth: best weekly chart position reached in each country by four Australian hits. A dropdown switches between songs.",
+  "width": "container",
+  "height": 430,
+  "params": [
+    {
+      "name": "song",
+      "value": "Dance Monkey",
+      "bind": {
+        "input": "select",
+        "options": ["Can't Get You Out of My Head", "Somebody That I Used to Know", "Dance Monkey", "Stay"],
+        "labels": [
+          "Can't Get You Out of My Head (Kylie Minogue, 2001)",
+          "Somebody That I Used to Know (Gotye, 2011)",
+          "Dance Monkey (Tones and I, 2019)",
+          "Stay (The Kid Laroi & Justin Bieber, 2021)"
+        ],
+        "name": "Song: "
+      }
+    }
+  ],
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    {
+      "data": {"url": "data/world-110m.json", "format": {"type": "topojson", "feature": "countries"}},
+      "mark": {"type": "geoshape", "fill": "#e3e1d6", "stroke": "#f7f6f0", "strokeWidth": 0.5},
+      "transform": [{"filter": "datum.id != 10"}]
+    },
+    {
+      "data": {
+        "url": "data/chart_peaks.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "year": "number",
+            "id": "number",
+            "peak": "number",
+            "lat": "number",
+            "lon": "number",
+            "tiny": "number"
+          }
+        }
+      },
+      "transform": [
+        {"filter": "datum.song == song && datum.tiny == 0"},
+        {
+          "lookup": "id",
+          "from": {
+            "data": {
+              "url": "data/world-110m.json",
+              "format": {"type": "topojson", "feature": "countries"}
+            },
+            "key": "id"
+          },
+          "as": "geo"
+        }
+      ],
+      "mark": {"type": "geoshape", "stroke": "#f7f6f0", "strokeWidth": 0.5},
+      "encoding": {
+        "shape": {"field": "geo", "type": "geojson"},
+        "color": {
+          "field": "band",
+          "type": "ordinal",
+          "title": "Best chart position",
+          "sort": ["No. 1", "Top 5", "Top 10", "Top 20", "Top 100"],
+          "scale": {
+            "domain": ["No. 1", "Top 5", "Top 10", "Top 20", "Top 100"],
+            "range": ["#41143c", "#66275d", "#8f417f", "#b8649f", "#d68fbd"]
+          },
+          "legend": {"orient": "bottom-left", "direction": "vertical", "symbolType": "square"}
+        },
+        "tooltip": [
+          {"field": "country", "title": "Country"},
+          {"field": "peak", "title": "Best weekly position"},
+          {"field": "label", "title": "Song"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/chart_peaks.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "year": "number",
+            "id": "number",
+            "peak": "number",
+            "lat": "number",
+            "lon": "number",
+            "tiny": "number"
+          }
+        }
+      },
+      "transform": [{"filter": "datum.song == song && datum.tiny == 1"}],
+      "mark": {"type": "circle", "size": 40, "stroke": "#f7f6f0", "strokeWidth": 1},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "color": {"field": "band", "type": "ordinal"},
+        "tooltip": [
+          {"field": "country", "title": "Country"},
+          {"field": "peak", "title": "Best weekly position"},
+          {"field": "label", "title": "Song"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/chart_peaks.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "year": "number",
+            "id": "number",
+            "peak": "number",
+            "lat": "number",
+            "lon": "number",
+            "tiny": "number"
+          }
+        }
+      },
+      "transform": [
+        {"filter": "datum.song == song"},
+        {"calculate": "datum.peak == 1 ? 1 : 0", "as": "is_one"},
+        {
+          "aggregate": [{"op": "count", "as": "countries"}, {"op": "sum", "field": "is_one", "as": "ones"}],
+          "groupby": []
+        },
+        {
+          "calculate": "'Charted in ' + datum.countries + ' countries · No. 1 in ' + datum.ones",
+          "as": "t"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "x": 4,
+        "y": 4,
+        "fontSize": 14,
+        "fontWeight": 600,
+        "color": "#17221b"
+      },
+      "encoding": {"text": {"field": "t"}}
+    }
+  ],
+  "resolve": {"scale": {"color": "shared"}}
+}

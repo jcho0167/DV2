@@ -1,0 +1,87 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Bar chart: total votes cast in each Hottest 100, coloured by whether the No. 1 song was by an Australian artist. Click the legend to isolate one group.",
+  "data": {
+    "url": "data/hottest100.csv",
+    "format": {"type": "csv", "parse": {"year": "number", "aus_entries": "number", "votes": "number"}}
+  },
+  "transform": [
+    {
+      "calculate": "datum.number_one_country == 'Australia' ? 'Australian No. 1' : 'International No. 1'",
+      "as": "winner"
+    },
+    {"calculate": "datum.votes ? datum.votes / 1e6 : null", "as": "votes_m"}
+  ],
+  "width": "container",
+  "height": 250,
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "ordinal",
+      "title": null,
+      "axis": {"labelAngle": 0, "labelExpr": "datum.value % 4 == 1 ? datum.value : ''", "ticks": false}
+    }
+  },
+  "layer": [
+    {
+      "params": [
+        {
+          "name": "pickWinner",
+          "select": {"type": "point", "fields": ["winner"]},
+          "bind": "legend"
+        }
+      ],
+      "mark": {"type": "bar", "cornerRadiusEnd": 3, "width": {"band": 0.72}, "cursor": "pointer"},
+      "encoding": {
+        "y": {
+          "field": "votes_m",
+          "type": "quantitative",
+          "title": "Votes cast (millions)",
+          "axis": {"tickCount": 4}
+        },
+        "color": {
+          "field": "winner",
+          "type": "nominal",
+          "title": "The winning song was…",
+          "scale": {
+            "domain": ["Australian No. 1", "International No. 1"],
+            "range": ["#1f7a4d", "#3b6fb6"]
+          },
+          "legend": {
+            "orient": "top",
+            "direction": "horizontal",
+            "symbolType": "square",
+            "title": "The winning song was…"
+          }
+        },
+        "opacity": {"condition": {"param": "pickWinner", "value": 1}, "value": 0.15},
+        "tooltip": [
+          {"field": "year", "title": "Year"},
+          {"field": "number_one", "title": "No. 1 song"},
+          {"field": "number_one_artist", "title": "Artist"},
+          {"field": "number_one_country", "title": "From"},
+          {"field": "votes", "title": "Votes", "format": ","}
+        ]
+      }
+    },
+    {
+      "transform": [{"filter": "datum.votes == null"}],
+      "mark": {"type": "text", "text": "n/a", "fontSize": 10, "color": "#5e675f", "dy": -6},
+      "encoding": {"y": {"datum": 0}}
+    },
+    {
+      "transform": [{"filter": "datum.year == 2019"}],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -16,
+        "dy": 10,
+        "text": "Peak: 3.2 million votes (2019)",
+        "fontSize": 12,
+        "fontWeight": 600,
+        "color": "#17221b"
+      },
+      "encoding": {"y": {"field": "votes_m", "type": "quantitative"}}
+    }
+  ]
+}

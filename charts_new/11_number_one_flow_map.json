@@ -1,0 +1,143 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Flow map on a Pacific-centred projection: great-circle routes from Australia to every country where at least one of the four songs reached No. 1. Line weight and colour = how many of the four songs topped that country's chart.",
+  "width": "container",
+  "height": 430,
+  "projection": {"type": "equalEarth", "rotate": [-150, 0]},
+  "layer": [
+    {
+      "data": {"url": "data/world-110m.json", "format": {"type": "topojson", "feature": "countries"}},
+      "mark": {"type": "geoshape", "fill": "#e3e1d6", "stroke": "#f7f6f0", "strokeWidth": 0.4},
+      "transform": [{"filter": "datum.id != 10"}]
+    },
+    {
+      "data": {
+        "url": "data/number_one_paths.csv",
+        "format": {
+          "type": "csv",
+          "parse": {"number_ones": "number", "order": "number", "lat": "number", "lon": "number"}
+        }
+      },
+      "mark": {"type": "line", "strokeCap": "round"},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "order": {"field": "order", "type": "quantitative"},
+        "detail": {"field": "country", "type": "nominal"},
+        "strokeWidth": {
+          "field": "hits",
+          "type": "ordinal",
+          "scale": {"domain": ["1 song", "2 songs", "3 songs", "4 songs"], "range": [0.8, 1.4, 2.2, 3]},
+          "legend": null
+        },
+        "color": {
+          "field": "hits",
+          "type": "ordinal",
+          "title": "No. 1 hits (of the four)",
+          "scale": {
+            "domain": ["1 song", "2 songs", "3 songs", "4 songs"],
+            "range": ["#b8649f", "#8f417f", "#66275d", "#41143c"]
+          },
+          "legend": {
+            "orient": "bottom-left",
+            "direction": "horizontal",
+            "symbolType": "stroke",
+            "symbolStrokeWidth": 3
+          }
+        },
+        "opacity": {"condition": {"param": "hoverCountry", "empty": true, "value": 0.6}, "value": 0.15}
+      },
+      "transform": [
+        {
+          "calculate": "datum.number_ones + (datum.number_ones == 1 ? ' song' : ' songs')",
+          "as": "hits"
+        }
+      ]
+    },
+    {
+      "data": {
+        "url": "data/number_one_flows.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "lat": "number",
+            "lon": "number",
+            "number_ones": "number",
+            "o_lat": "number",
+            "o_lon": "number"
+          }
+        }
+      },
+      "mark": {
+        "type": "circle",
+        "size": 70,
+        "stroke": "#f7f6f0",
+        "strokeWidth": 1.2,
+        "cursor": "pointer"
+      },
+      "params": [
+        {
+          "name": "hoverCountry",
+          "select": {"type": "point", "fields": ["country"], "on": "pointerover", "clear": "pointerout"}
+        }
+      ],
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "color": {"field": "hits", "type": "ordinal"},
+        "opacity": {"condition": {"param": "hoverCountry", "empty": true, "value": 1}, "value": 0.15},
+        "tooltip": [
+          {"field": "country", "title": "Country"},
+          {"field": "number_ones", "title": "No. 1 hits (of 4)"},
+          {"field": "songs", "title": "Which songs"}
+        ]
+      },
+      "transform": [
+        {
+          "calculate": "datum.number_ones + (datum.number_ones == 1 ? ' song' : ' songs')",
+          "as": "hits"
+        }
+      ]
+    },
+    {
+      "data": {"values": [{"lon": 149.13, "lat": -35.28, "t": "Australia"}]},
+      "layer": [
+        {
+          "mark": {
+            "type": "point",
+            "shape": "diamond",
+            "size": 180,
+            "filled": true,
+            "color": "#1f7a4d",
+            "stroke": "#f7f6f0",
+            "strokeWidth": 1.5
+          }
+        },
+        {
+          "mark": {"type": "text", "dy": 16, "fontSize": 12, "fontWeight": 600, "color": "#17221b"},
+          "encoding": {"text": {"field": "t"}}
+        }
+      ],
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"lon": 20, "lat": 12, "t": "Europe (top left): 32 countries where at least"},
+          {"lon": 20, "lat": 8, "t": "one of the four songs reached No. 1"},
+          {"lon": -165, "lat": 30, "t": "Canada: all four reached No. 1"},
+          {"lon": -165, "lat": 26, "t": "USA: two (Gotye, The Kid Laroi)"}
+        ]
+      },
+      "mark": {"type": "text", "fontSize": 11.5, "fontStyle": "italic", "color": "#5e675f"},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "t"}
+      }
+    }
+  ]
+}

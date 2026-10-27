@@ -1,0 +1,91 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Heatmap: best weekly chart position of four Australian hits in every country where at least three of them charted. Rows sorted by average position.",
+  "data": {
+    "url": "data/chart_peaks.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "year": "number",
+        "id": "number",
+        "peak": "number",
+        "lat": "number",
+        "lon": "number",
+        "tiny": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "joinaggregate": [
+        {"op": "count", "as": "songs_charted"},
+        {"op": "mean", "field": "peak", "as": "avg_peak"}
+      ],
+      "groupby": ["country"]
+    },
+    {"filter": "datum.songs_charted >= 3"},
+    {"calculate": "datum.artist + ' (' + datum.year + ')'", "as": "who"}
+  ],
+  "width": "container",
+  "height": {"step": 17},
+  "encoding": {
+    "y": {
+      "field": "country",
+      "type": "nominal",
+      "title": null,
+      "sort": {"field": "avg_peak", "op": "mean", "order": "ascending"},
+      "axis": {"ticks": false, "domain": false, "labelFontSize": 11}
+    },
+    "x": {
+      "field": "song",
+      "type": "nominal",
+      "title": null,
+      "sort": ["Can't Get You Out of My Head", "Somebody That I Used to Know", "Dance Monkey", "Stay"],
+      "axis": {
+        "orient": "top",
+        "ticks": false,
+        "domain": false,
+        "labelAngle": 0,
+        "labelFontWeight": 600,
+        "labelLimit": 110,
+        "labelFontSize": 11,
+        "labelExpr": "datum.value == \"Can't Get You Out of My Head\" ? 'Can’t Get You…' : datum.value == 'Somebody That I Used to Know' ? 'Somebody That…' : datum.value"
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {"type": "rect", "stroke": "#f7f6f0", "strokeWidth": 2, "cornerRadius": 2},
+      "encoding": {
+        "color": {
+          "field": "band",
+          "type": "ordinal",
+          "title": "Best chart position",
+          "scale": {
+            "domain": ["No. 1", "Top 5", "Top 10", "Top 20", "Top 100"],
+            "range": ["#41143c", "#66275d", "#8f417f", "#b8649f", "#d68fbd"]
+          },
+          "legend": {
+            "orient": "top",
+            "direction": "horizontal",
+            "symbolType": "square",
+            "title": "Best chart position"
+          }
+        },
+        "tooltip": [
+          {"field": "country", "title": "Country"},
+          {"field": "song", "title": "Song"},
+          {"field": "who", "title": "Artist"},
+          {"field": "peak", "title": "Best weekly position"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "fontSize": 10, "fontWeight": 600},
+      "encoding": {
+        "text": {"field": "peak"},
+        "color": {"condition": {"test": "datum.peak <= 10", "value": "#ffffff"}, "value": "#17221b"}
+      }
+    }
+  ]
+}
