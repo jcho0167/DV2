@@ -1,0 +1,9 @@
+state,state_name,population_000,artists,wins,artists_per_million,wins_per_million,lon,lat
+NSW,New South Wales,8670.1,17,160,1.96,18.45,146.6,-32.4
+VIC,Victoria,7154.2,16,157,2.24,21.95,144.0,-36.9
+QLD,Queensland,5739.5,4,47,0.7,8.19,144.6,-22.8
+SA,South Australia,1916.8,6,66,3.13,34.43,135.4,-30.2
+WA,Western Australia,3096.2,5,46,1.61,14.86,122.0,-26.0
+TAS,Tasmania,580.7,0,0,0.0,0.0,146.6,-42.0
+NT,Northern Territory,268.9,3,25,11.16,92.97,133.4,-19.6
+ACT,Australian Capital Territory,489.7,1,7,2.04,14.29,149.1,-35.5

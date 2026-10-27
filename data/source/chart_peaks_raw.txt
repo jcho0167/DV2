@@ -1,0 +1,202 @@
+# Weekly chart peaks transcribed from the "Weekly charts" tables on English Wikipedia
+# (original release-era tables only; year-end, monthly, remix-only and later re-entry tables excluded).
+# Retrieved 19 October 2026.
+# Format: song|chart name|peak
+
+== Can't Get You Out of My Head|Kylie Minogue|2001
+Australia (ARIA)|1
+Austria (Ö3 Austria Top 40)|1
+Belgium (Ultratop 50 Flanders)|1
+Belgium (Ultratop 50 Wallonia)|1
+Canada Radio (Nielsen BDS)|2
+Canada CHR/Top 40 (Nielsen BDS)|1
+Croatia International Airplay (HRT)|1
+Denmark (Tracklisten)|1
+Finland (Suomen virallinen lista)|5
+France (SNEP)|1
+Germany (GfK)|1
+Greece (IFPI Greece)|1
+Hungary (Mahasz)|1
+Ireland (IRMA)|1
+Italy (FIMI)|1
+Netherlands (Dutch Top 40)|1
+Netherlands (Single Top 100)|1
+New Zealand (Recorded Music NZ)|1
+Norway (VG-lista)|1
+Poland (Polish Singles Chart)|1
+Portugal (Billboard)|1
+Romania (Romanian Top 100)|1
+Russia Airplay (Music & Media)|1
+South Africa (RISA)|2
+Spain (Promusicae)|1
+Sweden (Sverigetopplistan)|1
+Switzerland (Schweizer Hitparade)|1
+UK Singles (Official Charts)|1
+US Billboard Hot 100|7
+
+== Somebody That I Used to Know|Gotye feat. Kimbra|2011
+Australia (ARIA)|1
+Austria (Ö3 Austria Top 40)|1
+Belgium (Ultratop 50 Flanders)|1
+Belgium (Ultratop 50 Wallonia)|1
+Bulgaria Airplay (BAMP)|2
+Canada Hot 100 (Billboard)|1
+Croatia International Airplay (Top lista)|1
+Czech Republic Airplay (ČNS IFPI)|1
+Denmark (Tracklisten)|1
+Finland (Suomen virallinen lista)|1
+France (SNEP)|1
+Germany (GfK)|1
+Greece Digital Songs (Billboard)|2
+Honduras Airplay (Honduras Top 50)|33
+Hungary (Rádiós Top 40)|1
+Iceland (Tónlistinn)|4
+Ireland (IRMA)|1
+Israel International Airplay (Media Forest)|1
+Italy (FIMI)|1
+Japan Hot 100 (Billboard)|10
+Mexico Airplay (Billboard)|8
+Portugal Digital Songs (Billboard)|2
+Netherlands (Dutch Top 40)|1
+Netherlands (Single Top 100)|1
+New Zealand (Recorded Music NZ)|1
+Norway (VG-lista)|2
+Poland Airplay (ZPAV)|1
+Romania Airplay (Airplay 100)|1
+Slovakia Airplay (ČNS IFPI)|1
+Slovenia Airplay (SloTop50)|17
+Spain (Promusicae)|3
+Sweden (Sverigetopplistan)|1
+Switzerland (Schweizer Hitparade)|2
+UK Singles (Official Charts)|1
+US Billboard Hot 100|1
+Venezuela Pop Rock General (Record Report)|1
+
+== Dance Monkey|Tones and I|2019
+Argentina Hot 100 (Billboard)|2
+Australia (ARIA)|1
+Austria (Ö3 Austria Top 40)|1
+Belgium (Ultratop 50 Flanders)|1
+Belgium (Ultratop 50 Wallonia)|1
+Bolivia Airplay (Monitor Latino)|3
+Brazil Airplay (Crowley Charts)|29
+Bulgaria Airplay (PROPHON)|1
+Canada Hot 100 (Billboard)|1
+Chile Airplay (Monitor Latino)|4
+Colombia Airplay (National-Report)|4
+Costa Rica Airplay (Monitor Latino)|2
+Croatia International Airplay (Top lista)|2
+Czech Republic Singles Digital (ČNS IFPI)|1
+Denmark (Tracklisten)|1
+Dominican Republic Airplay (SodinPro)|19
+Ecuador Airplay (National-Report)|1
+El Salvador Airplay (Monitor Latino)|2
+Estonia (Eesti Tipp-40)|1
+Finland (Suomen virallinen lista)|1
+France (SNEP)|1
+Germany (GfK)|1
+Greece International (IFPI)|1
+Guatemala Airplay (Monitor Latino)|8
+Honduras Airplay (Monitor Latino)|13
+Hong Kong (HKRIA)|14
+Hungary (Single Top 40)|1
+Iceland (Tónlistinn)|1
+Ireland (IRMA)|1
+Israel International Airplay (Media Forest)|1
+Italy (FIMI)|1
+Japan Hot 100 (Billboard)|47
+Latvia Streaming (LaIPA)|1
+Lithuania (AGATA)|1
+Lebanon (Lebanese Top 20)|2
+Luxembourg Digital (Billboard)|1
+Malaysia (RIM)|1
+Mexico Airplay (Billboard)|1
+Netherlands (Single Top 100)|1
+New Zealand (Recorded Music NZ)|1
+Nicaragua Airplay (Monitor Latino)|4
+Norway (VG-lista)|1
+Panama Airplay (Monitor Latino)|8
+Peru Airplay (Monitor Latino)|1
+Poland Airplay (ZPAV)|1
+Portugal (AFP)|1
+Romania (Airplay 100)|1
+Russia Airplay (TopHit)|2
+Singapore (RIAS)|1
+Slovakia Singles Digital (ČNS IFPI)|1
+Slovenia Airplay (SloTop50)|1
+South Africa Streaming (RISA)|27
+South Korea (Gaon)|15
+Spain (Promusicae)|2
+Sweden (Sverigetopplistan)|1
+Switzerland (Schweizer Hitparade)|1
+Ukraine Airplay (TopHit)|1
+UK Singles (Official Charts)|1
+Uruguay Airplay (Monitor Latino)|5
+US Billboard Hot 100|4
+Venezuela Airplay (Monitor Latino)|13
+
+== Stay|The Kid Laroi & Justin Bieber|2021
+Argentina Hot 100 (Billboard)|35
+Australia (ARIA)|1
+Austria (Ö3 Austria Top 40)|1
+Belarus Airplay (TopHit)|28
+Belgium (Ultratop 50 Flanders)|1
+Belgium (Ultratop 50 Wallonia)|1
+Bolivia Airplay (Monitor Latino)|7
+Brazil Airplay (Top 100 Brasil)|3
+Bulgaria Airplay (PROPHON)|3
+Canada Hot 100 (Billboard)|1
+Colombia Streaming (Promúsica)|16
+Costa Rica (FONOTICA)|9
+Croatia International Airplay (Top lista)|6
+Czech Republic Singles Digital (ČNS IFPI)|1
+Denmark (Tracklisten)|1
+Dominican Republic Streaming (SODINPRO)|20
+Ecuador Airplay (Monitor Latino)|18
+El Salvador Airplay (ASAP EGC)|1
+Finland (Suomen virallinen lista)|1
+France (SNEP)|3
+Germany (GfK)|1
+Greece International (IFPI)|2
+Honduras Airplay (Monitor Latino)|7
+Hong Kong (Billboard)|14
+Hungary (Rádiós Top 40)|1
+Iceland (Tónlistinn)|1
+India International (IMI)|1
+Indonesia (Billboard)|18
+Ireland (IRMA)|2
+Israel International Airplay (Media Forest)|1
+Italy (FIMI)|3
+Japan Hot 100 (Billboard)|10
+Kazakhstan Airplay (TopHit)|93
+Lebanon (Lebanese Top 20)|2
+Lithuania (AGATA)|2
+Luxembourg (Billboard)|10
+Malaysia (RIM)|1
+Mexico Streaming (AMPROFON)|8
+Netherlands (Single Top 100)|1
+New Zealand (Recorded Music NZ)|1
+Norway (VG-lista)|1
+Panama (PRODUCE)|5
+Peru (UNIMPRO)|7
+Philippines (Billboard)|15
+Poland Airplay (ZPAV)|1
+Portugal (AFP)|3
+Puerto Rico (Monitor Latino)|15
+Romania (UPFR)|2
+Russia Airplay (TopHit)|2
+San Marino Airplay (SMRTV Top 50)|1
+Singapore (RIAS)|1
+Slovakia Singles Digital (ČNS IFPI)|1
+South Africa (TOSAC)|2
+South Korea (Gaon)|1
+Spain (Promusicae)|11
+Sweden (Sverigetopplistan)|1
+Switzerland (Schweizer Hitparade)|2
+Taiwan (Billboard)|3
+Ukraine Airplay (TopHit)|28
+UK Singles (Official Charts)|2
+US Billboard Hot 100|1
+Uruguay (Monitor Latino)|14
+Venezuela Airplay (Monitor Latino)|14
+Vietnam (Vietnam Hot 100)|9
