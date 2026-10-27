@@ -1,124 +1,298 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-AU">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Behind the Music | Australian Music Industry</title>
+  <title>Made in Australia: Where Our Music Comes From and How Far It Travels</title>
+  <meta name="description" content="A data story about Australian music artists: where they come from, what they win, how they fare at home, and how far their songs travel.">
+  <meta name="author" content="Jeongwoo Choi 33879176">
 
-  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
-  
-  <!-- Typography imports-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Big+Shoulders+Display:wght@700;800;900&family=Big+Shoulders+Stencil+Display:wght@800;900&family=DM+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 
-  <!-- Main page styling -->
-  <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.33.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.23.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.29.0"></script>
 </head>
-
 <body>
-  <div class="page">
 
-    <header class="hero">
-      <p class="eyebrow">Australian Music Arists | How the Industry Revolves Around Them</p>
-      <h1>Australian Music Artists</h1>
-      <p>Who earns from music, where performances happen, how artists reach audiences, and which subindustries generate export revenue.</p>
+<!-- ===================== MASTHEAD: styled like an album sleeve ===================== -->
+<header class="masthead">
+  <div class="wrap masthead-grid">
+    <div>
+      <p class="kicker">A data story in four tracks &middot; LP &middot; 2026</p>
+      <h1><span class="h1-top">Made in</span><span class="h1-stencil">Australia</span></h1>
+      <p class="standfirst">Our artists come from big cities and remote islands. They win trophies at home and top the charts in dozens of countries. Here is where Australian music comes from, and how far it travels.</p>
+      <p class="byline">By <strong>Jeongwoo Choi 33879176</strong> &middot; FIT3179 Data Visualisation 2, Monash University &middot; October 2026</p>
+    </div>
+    <nav class="tracklist" aria-label="Chapters">
+      <p class="side">Side A</p>
+      <a href="#where"><span class="tno">01</span><span class="tname">Where the music comes from</span><span class="tlen">3 charts</span></a>
+      <a href="#trophies"><span class="tno">02</span><span class="tname">The trophy cabinet</span><span class="tlen">2 charts</span></a>
+      <p class="side">Side B</p>
+      <a href="#home"><span class="tno">03</span><span class="tname">The home crowd</span><span class="tlen">3 charts</span></a>
+      <a href="#world"><span class="tno">04</span><span class="tname">Going global</span><span class="tlen">3 charts</span></a>
+    </nav>
+  </div>
+  <div class="eq" aria-hidden="true"></div>
+</header>
+
+<div class="wrap stats" aria-label="Key numbers">
+  <div class="stat"><span class="stat-num" data-count="508">508</span><span class="stat-label">ARIA Awards shared by the 52 most-awarded artists we mapped</span></div>
+  <div class="stat"><span class="stat-num" data-count="6" data-suffix="×">6×</span><span class="stat-label">the national rate of top artists per person, in the Northern Territory</span></div>
+  <div class="stat"><span class="stat-num" data-count="66">66</span><span class="stat-label">Australian songs in the Hottest 100 at its peak (2016 and 2020)</span></div>
+  <div class="stat"><span class="stat-num" data-count="45">45</span><span class="stat-label">countries where at least one of four Aussie hits reached No.&nbsp;1</span></div>
+</div>
+
+
+<div class="wrap"><div class="colour-key" aria-label="Colour key">
+  <span class="kicker">Colour key</span>
+  <span class="swatch"><i style="background:#1f7a4d"></i>Australian artists &amp; songs</span>
+  <span class="swatch"><i style="background:#3b6fb6"></i>International artists &amp; songs</span>
+  <span class="swatch"><i style="background:#b58200"></i>ARIA Awards</span>
+  <span class="swatch"><i class="ramp"></i>Chart position overseas (darker = higher)</span>
+  <span class="swatch"><i style="background:#aaa79b"></i>Other / no data</span>
+</div></div>
+
+<main class="wrap">
+
+  <!-- ===================== TRACK 01 ===================== -->
+  <section class="chapter" id="where">
+    <header class="chapter-head reveal">
+      <span class="track-no" aria-hidden="true">01</span>
+      <div>
+        <p class="kicker">Side A &middot; Track 01</p>
+        <h2>Where the music comes from</h2>
+      </div>
     </header>
 
-    <section class="section two-col">
-      <div class="description">
-          <h2>Who are the Most Popular Australian Artists ?</h2>
-          <p>This chart shows the most popular Australian music artists, ordered by their global
-            monthly listeners on Spotify. 
-          </p>
+    <div class="grid-2 reveal">
+      <div>
+        <p class="lede">The ARIA Music Awards have been Australia's main music prize since 1987. We took the 53 artists who have won six or more of them and traced each one back to the town where they grew up or formed.</p>
       </div>
-      <div id="vis-australian-artists" class="vis-container"></div>
-    </section>
+      <blockquote class="pull">Three of Australia's most-awarded acts come from Yolŋu communities in Arnhem Land.</blockquote>
+    </div>
 
-    <section class="section two-col">
-      <div class="description">
-        <h2>How do artists earn their income?</h2>
-        <p>
-          Live performances dominate the income breakdown for artists, followed by royalties.
-          Income earned from live performances isn't only reserved for the top artists.
-          </p>
-          <br>
-          <p>
-          Additionally, analysis from Music Australia across 2023-24 and 2024-25 shows that artists
-          earning lower incomes tended to be more reliant on live performances for their income.
-          Higher income artists tended to earn a higher proportion of their incomes from royalties.
-        </p>
+    <figure class="grid-2 align-top reveal">
+      <div>
+        <div class="fig-head">
+          <h3>The home towns of Australia's most-awarded artists</h3>
+          <p class="fig-sub">Each <mark class="award">gold</mark> circle is a home town, sized by the ARIA Awards its artists have won (to 2025). Circles are see-through so overlapping towns stay visible.</p>
+        </div>
+        <div id="vis-origins" class="vis"></div>
       </div>
-      <div id="vis-income" class="vis-container"></div>
-    </section>
+      <div class="fig-side">
+        <p>Melbourne and Sydney dominate, as you would expect from our two biggest cities. <strong>Melbourne</strong> produced 12 of these artists, including John Farnham, Kylie Minogue and Gotye. <strong>Sydney</strong> produced 13, including INXS, Midnight Oil and The Wiggles.</p>
+        <p>Adelaide is a clear third, home to Paul Kelly, Sia and Hilltop Hoods. And at the very top of the country sits a cluster from Arnhem Land: Yothu Yindi, Gurrumul and Baker Boy.</p>
+        <p class="howto"><b>Try it:</b> click a state to show only its towns. Click it again to reset. Hover a circle to see who comes from there.</p>
+      </div>
+      <figcaption class="source">Sources: Wikipedia, "ARIA Music Awards" (most wins, to 2025) and each artist's article for home town. Wendy Matthews (7 wins) is not mapped because she was born in Canada and her article gives no Australian home town.</figcaption>
+    </figure>
 
-    <section class="section two-col">
-      <div class="description">
-          <h2>Where do Australian Music Artists Mostly Play At ?</h2>
-          <p>
-            Hotels and pubs account for the largest number of performances in the supplied data.
-            Comparing venue types helps show how live music is distributed across everyday venues,
-            dedicated performance spaces and private settings.
-          </p>
-          <br>
-          <p>
-            Stadiums and arenas are predominantly reserved for higher income top artists, while lower
-            income artists rely on performing in pubs, hotels, and theatres to make a regular income.
-            This reflects how skewed the income distribution for artists in Australia are, there is a
-            much larger proportion of lower income artists.
-          </p>
+    <figure class="grid-2 align-top reveal">
+      <div>
+        <div class="fig-head">
+          <h3>Per person, the Northern Territory leads</h3>
+          <p class="fig-sub">Most-awarded artists per million residents: darker <mark class="award">gold</mark> means more. Switch to ARIA Awards won per million.</p>
         </div>
-      <div id="vis-venues" class="vis-container"></div>
-    </section>
+        <div id="vis-choropleth" class="vis"></div>
+      </div>
+      <div class="fig-side">
+        <p>Raw counts favour big states, so we divided by population using the latest figures from the Australian Bureau of Statistics. <strong>South Australia</strong> punches above its weight, and the <strong>Northern Territory</strong> leads by a mile: three artists from a territory of just 269,000 people.</p>
+        <h3 class="side-title">Who holds the trophies?</h3>
+        <p class="fig-sub">Share of the 508 wins, by home state. Each wedge's area shows its wins.</p>
+        <div id="vis-radial" class="vis"></div>
+      </div>
+      <figcaption class="source">Sources: ARIA data as above; ABS, National, state and territory population, March 2026 (released 17 September 2026). Tasmania has no artist on this list.</figcaption>
+    </figure>
+  </section>
 
-    <section class="section two-col">
-      <div class="description">
-          <h2>How Do Artists Access Labels and Distribution ?</h2>
-          <p>
-            The largest group reports having no label or distribution support. Other artists report
-            access to selected distribution services, their own label, or an independent or major label.
-            This gives context to the different routes artists may take to release music.
-          </p>
-        </div>
-      <div id="vis-distribution" class="vis-container"></div>
-    </section>
+  <!-- ===================== TRACK 02 ===================== -->
+  <section class="chapter" id="trophies">
+    <header class="chapter-head reveal">
+      <span class="track-no" aria-hidden="true">02</span>
+      <div>
+        <p class="kicker">Side A &middot; Track 02</p>
+        <h2>The trophy cabinet</h2>
+      </div>
+    </header>
 
-    <section class="section two-col">
-      <div class="description">
-          <h2>Which Music Subindustries Earn Revenue Overseas ?</h2>
-          <p>
-            The bubble chart compares 2025 total revenue with export revenue for the many music subindustries. 
-            Larger bubbles represent higher total revenue, while colour shows export revenue as a percentage
-            of total revenue. This helps distinguish the biggest sectors from those with a greater export orientation.
-          </p>
-          <br>
-          <p>
-            As seen in the previous tree map, live performances had the greatest total revenue, however export revenue
-            is quite limited. This is intuitive, as live performances are the main income source for the disproportionately
-            larger number of low income artists.
-          </p>
+    <div class="grid-2 reveal">
+      <p class="lede">Being nominated is an honour; winning is another matter. Some artists collect awards almost every time they are nominated, while others rack up dozens of nominations.</p>
+      <blockquote class="pull">John Farnham: 22 wins from 65 nominations, the most of anyone on the list.</blockquote>
+    </div>
+
+    <figure class="reveal">
+      <div class="fig-head">
+        <h3>Wins versus nominations for the 25 most-awarded artists</h3>
+        <p class="fig-sub">The <mark class="award">gold</mark> dot is wins and the grey dot is nominations. A long bar means many nominations that did not turn into wins.</p>
+      </div>
+      <div class="notes-strip">
+        <p class="note"><strong>John Farnham</strong> has the most wins (22) and the most nominations (65).</p>
+        <p class="note"><strong>Paul Kelly</strong> has been nominated 63 times but has won 17, about one in four.</p>
+        <p class="note"><strong>Jet</strong> converted 8 of 11 nominations (73%), the best rate among these 25.</p>
+      </div>
+      <div id="vis-dumbbell" class="vis"></div>
+      <figcaption class="source">Source: Wikipedia, "ARIA Music Awards", table of most wins (figures up to 2025). Ties are ordered by fewer nominations.</figcaption>
+    </figure>
+
+    <figure class="reveal">
+      <div class="fig-head grid-2">
+        <div>
+          <h3>Entering the ARIA Hall of Fame</h3>
+          <p class="fig-sub">Each dot is one inductee, stacked by year. <mark class="award">Gold</mark> dots are also among the 53 most-awarded artists.</p>
         </div>
-      <div id="vis-subindustry" class="vis-container"></div>
-    </section>
+        <p class="fig-side">Early inductees were pioneers such as Nellie Melba and Slim Dusty. Since 2011, 12 of the 21 inductees are also among the most-awarded artists.</p>
+      </div>
+      <div id="vis-halloffame" class="vis"></div>
+      <figcaption class="source">Source: Wikipedia, "ARIA Hall of Fame". Rolf Harris (2008) is excluded because ARIA withdrew his induction in 2014. There were no inductees in 2000, 2021 or 2022.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===================== TRACK 03 ===================== -->
+  <section class="chapter" id="home">
+    <header class="chapter-head reveal">
+      <span class="track-no" aria-hidden="true">03</span>
+      <div>
+        <p class="kicker">Side B &middot; Track 03</p>
+        <h2>The home crowd</h2>
+      </div>
+    </header>
+
+    <div class="grid-2 reveal">
+      <div>
+        <p class="lede">Every year, Triple J listeners vote for their favourite songs of the past year in the Hottest 100. It is often called the world's biggest music poll, and it shows how much Australians listen to their own artists.</p>
+        <p>When the yearly countdown began in 1993, only 24 of the 100 songs were Australian. Local music climbed steadily, peaking at 66 songs in 2016 and again in 2020. In 2024 it fell to 29 as US and UK pop stars dominated the vote, then bounced back to 54 in 2025.</p>
+      </div>
+      <blockquote class="pull">In 2024 only 29 of the 100 songs were Australian, the fewest since 1996.</blockquote>
+    </div>
+
+    <figure class="reveal">
+      <div class="fig-head">
+        <h3>Songs by Australian artists in each Hottest 100</h3>
+        <p class="fig-sub">Hover the line to see each year's No. 1 song.</p>
+      </div>
+      <div id="vis-hottest-line" class="vis"></div>
+      <figcaption class="source">Source: Wikipedia articles for each Triple J Hottest 100 (1993–2025), using the "entries by country" tables (1999 and 2020 from the article text). A song with an Australian and an overseas artist counts as Australian.</figcaption>
+    </figure>
+
+    <figure class="reveal">
+      <div class="fig-head">
+        <h3>Four countdowns, 100 songs each</h3>
+        <p class="fig-sub">Each square is one song: <mark class="au">Australian</mark> or <mark class="intl">international</mark>.</p>
+      </div>
+      <div id="vis-waffle" class="vis"></div>
+      <figcaption class="source">Source: as above.</figcaption>
+    </figure>
+
+    <figure class="reveal">
+      <div class="fig-head grid-2">
+        <div>
+          <h3>Votes cast, and who won</h3>
+          <p class="fig-sub">Bar height shows total votes. Colour shows whether the No. 1 song was <mark class="au">Australian</mark> or <mark class="intl">international</mark>. Click the legend to highlight one group.</p>
+        </div>
+        <p class="fig-side">Votes grew from about 50,000 in 1993 to over three million in 2019. Australian songs won 17 of the 33 countdowns, but six of the nine since 2017 went overseas.</p>
+      </div>
+      <div id="vis-votes" class="vis"></div>
+      <figcaption class="source">Source: Wikipedia, "Triple J Hottest 100" (vote totals as reported by Triple J; no total was published for 1994 or 2002).</figcaption>
+    </figure>
+  </section>
+
+  <!-- ===================== TRACK 04 ===================== -->
+  <section class="chapter" id="world">
+    <header class="chapter-head reveal">
+      <span class="track-no" aria-hidden="true">04</span>
+      <div>
+        <p class="kicker">Side B &middot; Track 04</p>
+        <h2>Going global</h2>
+      </div>
+    </header>
+
+    <div class="grid-2 reveal">
+      <div>
+        <p class="lede">A handful of Australian songs have become worldwide hits. We followed four of the biggest, released between 2001 and 2021, through the national charts of every country listed on their Wikipedia pages.</p>
+        <p>Tones and I's <em>Dance Monkey</em> is the standout, reaching No. 1 from Germany to Malaysia to Peru. Kylie Minogue's <em>Can't Get You Out of My Head</em> topped almost every chart it entered in 2001, although fewer countries had official charts back then.</p>
+      </div>
+      <blockquote class="pull"><em>Dance Monkey</em> reached No. 1 in 37 of the 60 countries where it charted.</blockquote>
+    </div>
+
+    <figure class="reveal">
+      <div class="fig-head">
+        <h3>How high did each song go?</h3>
+        <p class="fig-sub">Darker <mark class="plum">plum</mark> means a higher chart position. Pick a song from the menu. Grey countries had no chart entry for that song.</p>
+      </div>
+      <div id="vis-world" class="vis"></div>
+      <figcaption class="source">Source: "Weekly charts" tables on the Wikipedia article for each song (main national charts, original release only). Hong Kong, Singapore and San Marino are shown as dots.</figcaption>
+    </figure>
+
+    <figure class="grid-2 flip align-top reveal">
+      <div class="fig-side">
+        <h3>Country by country</h3>
+        <p class="fig-sub">Best weekly chart position in the 35 countries where at least three of the songs charted, sorted from most to least successful.</p>
+        <p><strong>Ten countries</strong> besides Australia, from Austria to Sweden, sent all four songs to No. 1.</p>
+        <p>The <strong>United States</strong> is harder to win. Kylie peaked at 7 and Tones and I at 4. Only Gotye and The Kid Laroi (with Justin Bieber) reached No. 1 there.</p>
+        <p><strong>Japan</strong> was the least receptive market, with no song higher than 10.</p>
+      </div>
+      <div id="vis-heatmap" class="vis"></div>
+      <figcaption class="source">Source: as above. Blank cells mean the song did not appear in that country's main chart.</figcaption>
+    </figure>
+
+    <figure class="reveal">
+      <div class="fig-head grid-2">
+        <div>
+          <h3>Forty-five countries where an Australian song reached No. 1</h3>
+          <p class="fig-sub">Darker, thicker <mark class="plum">plum</mark> lines mean more of the four songs topped that country's chart. Hover a dot to see which songs.</p>
+        </div>
+        <p class="fig-side">In 10 of these countries all four songs hit No. 1. Lines follow the shortest route around the globe, on a map centred on the Pacific.</p>
+      </div>
+      <div id="vis-flows" class="vis"></div>
+      <figcaption class="source">Source: as above. Lines are great-circle routes from Canberra to each country's capital.</figcaption>
+    </figure>
+
+    <div class="encore reveal">
+      <p class="kicker">Encore</p>
+      <h2>What we learned</h2>
+      <div class="takeaways">
+        <div class="takeaway"><h3>Talent is everywhere</h3><p>Melbourne and Sydney produce the most stars, but per person the Northern Territory and South Australia lead the country.</p></div>
+        <div class="takeaway"><h3>Home support swings</h3><p>Australian songs rose from a quarter to two-thirds of the Hottest 100, then dropped sharply in 2024 before recovering.</p></div>
+        <div class="takeaway"><h3>The world is listening</h3><p>Four songs alone reached No. 1 in 45 countries, mostly in Europe and the Americas.</p></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===================== LINER NOTES ===================== -->
+<footer class="liner">
+  <div class="wrap liner-grid">
+    <div>
+      <p class="kicker">Liner notes</p>
+      <h2>About this page</h2>
+      <h3>Data sources</h3>
+      <ol>
+        <li>Wikipedia contributors, "ARIA Music Awards" (table of most wins and nominations, up to 2025) and individual artist articles for home towns. <a href="https://en.wikipedia.org/wiki/ARIA_Music_Awards">en.wikipedia.org/wiki/ARIA_Music_Awards</a>. Accessed 19 October 2026.</li>
+        <li>Australian Bureau of Statistics, <em>National, state and territory population, March 2026</em> (released 17 September 2026). <a href="https://www.abs.gov.au/media-centre/media-releases/australias-population-grows-14-march-2026">abs.gov.au</a>.</li>
+        <li>Wikipedia contributors, "Triple J Hottest 100" and the article for each year from 1993 to 2025. <a href="https://en.wikipedia.org/wiki/Triple_J_Hottest_100">en.wikipedia.org/wiki/Triple_J_Hottest_100</a>. Accessed 19 October 2026.</li>
+        <li>Wikipedia contributors, "ARIA Hall of Fame". <a href="https://en.wikipedia.org/wiki/ARIA_Hall_of_Fame">en.wikipedia.org/wiki/ARIA_Hall_of_Fame</a>. Accessed 19 October 2026.</li>
+        <li>Wikipedia contributors, weekly chart tables for <a href="https://en.wikipedia.org/wiki/Can%27t_Get_You_Out_of_My_Head">Can't Get You Out of My Head</a>, <a href="https://en.wikipedia.org/wiki/Somebody_That_I_Used_to_Know">Somebody That I Used to Know</a>, <a href="https://en.wikipedia.org/wiki/Dance_Monkey">Dance Monkey</a> and <a href="https://en.wikipedia.org/wiki/Stay_(The_Kid_Laroi_and_Justin_Bieber_song)">Stay</a>. Accessed 19 October 2026.</li>
+        <li>Map boundaries: Australian states GeoJSON by tonywr71 (<a href="https://github.com/tonywr71/GeoJson-Data">github.com/tonywr71/GeoJson-Data</a>); world map from vega-datasets <em>world-110m</em>, derived from Natural Earth (<a href="https://github.com/vega/vega-datasets">github.com/vega/vega-datasets</a>).</li>
+      </ol>
+      <h3>Notes on method</h3>
+      <p>"Home town" uses the Origin field of each artist's Wikipedia infobox. Where that is missing, it uses where the artist grew up, and failing that, their Australian birthplace. Chart positions use each country's main national chart and ignore genre and airplay sub-charts unless a country has no other chart listed. All figures were collected on 19 October 2026 and may change as the sources are updated.</p>
+    </div>
+    <div>
+      <h3>Author</h3>
+      <p>Jeongwoo Choi 33879176<br>FIT3179 Data Visualisation, Semester 2, 2026<br>Published October 2026</p>
+      <h3>Tools</h3>
+      <p>Charts and maps built with <a href="https://vega.github.io/vega-lite/">Vega-Lite</a>. Typefaces: Big Shoulders Display and Big Shoulders Stencil Display, Newsreader, Archivo and DM Mono (Google Fonts).</p>
+      <h3>AI Acknowledgement</h3>
+      <p>Generative AI (Claude, by Anthropic) was used to help collect and check data, draft the Vega-Lite specifications and page code, and edit the text. All data and claims were checked against the sources listed.</p>
+    </div>
   </div>
+</footer>
 
-  <script>
-    // Each chart loads its existing Vega-Lite JSON specification from a separate file.
-    // Keep these JSON files in the vega_lite_australian_music_charts folder relative to this HTML file.
-    const chartOptions = { actions: false, renderer: "svg" };
-
-    vegaEmbed("#vis-income", "charts_new/artist_income_treemap.vl.json", chartOptions)
-      .catch(console.error);
-    vegaEmbed("#vis-venues", "charts_new/music_venue_performances_bar.vl.json", chartOptions)
-      .catch(console.error);
-    vegaEmbed("#vis-distribution", "charts_new/artist_distribution_lollipop.vl.json", chartOptions)
-      .catch(console.error);
-    vegaEmbed("#vis-subindustry", "charts_new/australian_subindustry_bubble.vl.json", chartOptions)
-      .catch(console.error);
-    vegaEmbed("#vis-australian-artists", "charts_new/top_5_artists_image_chart.vl.json", chartOptions)
-      .catch(console.error);
-  </script>
+<script src="js/main.js"></script>
 </body>
 </html>
